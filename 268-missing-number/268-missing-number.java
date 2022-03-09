@@ -1,15 +1,24 @@
 class Solution {
     public int missingNumber(int[] nums) {
+        HashSet map=new HashSet<>(nums.length);
         if(nums==null)
             return 0;
-        Arrays.sort(nums);
-        int mi=nums[0];
-        for(int i=1;i<nums.length;i++)
-            if(nums[i]!=++mi)
-                return mi;
-        if(nums[0]==0)
-            return (nums[nums.length-1]+1);
+        int max=nums[0],min=nums[0];
+        for(int i=0;i<nums.length;i++){
+            map.add(nums[i]);
+            min=Math.min(min,nums[i]);
+            max=Math.max(max,nums[i]);
+        }
+        int k=min+1;
+        while(k<max){
+            if(!map.contains(k))
+                return k;
+            k++;
+        }
+        
+        if(min==0)
+            return (max+1);
         else
-            return (nums[0]-1);
+            return (min-1);
 }
 }
