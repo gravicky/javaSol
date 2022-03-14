@@ -1,19 +1,23 @@
 public class Solution {
     public boolean isHappy(int n) {
-        HashSet<Integer> set = new HashSet<Integer>();
-        set.add(n);
-        while (n != 1) {
-            int result = 0;
-            while (n != 0) {
-                result += Math.pow(n % 10, 2);
-                n /= 10;
-            }
-            if (set.contains(result)) {
-                return false;
-            }
-            set.add(result);
-            n = result;
+int s = n,f = n; // slow , fast
+        
+        do{
+            s = compute(s); // slow computes only once
+            f = compute(compute(f)); // fast computes 2 times
+            
+            if(s == 1)return true; // if we found 1 then happy indeed !!!
+        }while(s != f); // else at some point they will meet in the cycle
+        
+        return false; // it's a cycle , not happy at all !!!
+    }
+    
+    public int compute(int n){
+        int s = 0;
+        while(n != 0){
+            s += (n%10)*(n%10);
+            n = n/10;
         }
-        return true;
+        return s;
     }
 }
