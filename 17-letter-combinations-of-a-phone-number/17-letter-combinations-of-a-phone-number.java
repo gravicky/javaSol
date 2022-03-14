@@ -1,18 +1,41 @@
-
-  public class Solution {
- String[][] refer={{},{},{"a","c","b"},{"d","e","f"},{"g","h","i"},{"j","k","l"},{"m","n","o"},{"p","q","r","s"},{"t","u","v"},{"w","x","y","z"}};
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        // build up the HashMap Charater to String
+        Map<Character, String> phone = new HashMap<Character, String>() {{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+          }};
+        List<String> ls = new ArrayList<>();
+        // if "digits" is empty return empty list
+        if(digits.length() == 0) {
+            return ls;
+        }
+        StringBuilder sb = new StringBuilder();
+        backtrack(sb, digits, ls, phone, 0);
+        return ls;
+    }
     
-    public List<String> letterCombinations(String digits) {	        
-    	List<String> list=new ArrayList<String>();
-    	if(!digits.equals("")){helper(list,digits,""); return list;}
-    	 return list;	    	
+    public void backtrack(StringBuilder sb, String digits, List<String> ls, Map<Character, String> phone, int start) {
+        if(sb.length() == digits.length()) {
+            ls.add(sb.toString());
+            return;
+        }
+        // we have to use 'start' to ensure we will go to next character of digit
+        for(int i = start; i < digits.length(); i++) {
+            // get the character's corresponding String from the map
+            String s = phone.get(digits.charAt(i));
+            // loop through all the character in specific String in Map
+            for(int j = 0; j < s.length(); j++) {
+                sb.append(s.charAt(j));
+                backtrack(sb, digits, ls, phone, i + 1);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+        }
     }
-    private void helper(List<String> list,String digits,String s){
-    	   if(digits.length()==0){ list.add(s); return;}
-    		int idx=Integer.parseInt(digits.substring(0, 1)); 
-    		for(String k:refer[idx]){
-    		  helper(list,digits.substring(1,digits.length()),s+k);	
-    		}		
-    	return;
-    }
-  }
+}
