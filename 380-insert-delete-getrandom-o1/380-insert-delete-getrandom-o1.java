@@ -1,46 +1,46 @@
+class RandomizedSet {
 
+    List<Integer> nums;
+    Map<Integer, Integer> idxMap;
+    Random random;
 
-public class RandomizedSet {
-
-    HashMap<Integer, Integer> valToInd;
-    List<Integer> list;
-    int ind = 0;
-    
-    /** Initialize your data structure here. */
     public RandomizedSet() {
-        valToInd = new HashMap<>();
-        list = new ArrayList<>();
+        nums = new ArrayList<>();
+        idxMap = new HashMap<>();
+        random = new Random();
     }
-    
-    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+
     public boolean insert(int val) {
-        if(valToInd.containsKey(val)) return false;
-        list.add(val);
-        valToInd.put(val,list.size()-1);
+        if (idxMap.containsKey(val)) {
+            return false;
+        }
+
+        idxMap.put(val, nums.size());
+        nums.add(val);
         return true;
     }
-    
-    /** Removes a value from the set. Returns true if the set contained the specified element. */
+
     public boolean remove(int val) {
-        int ind = valToInd.getOrDefault(val,-1);
-        if(ind == -1) return false;
-        Collections.swap(list,ind,list.size()-1);
-        int swappedWith = list.get(ind);
-        valToInd.put(swappedWith,ind);
-        list.remove(list.size()-1);
-        valToInd.remove(val);
+        if (!idxMap.containsKey(val)) {
+            return false;
+        }
+
+        int idx = idxMap.get(val);
+        int lastIdx = nums.size() - 1;
+        if (idx != lastIdx) {
+            int lastVal = nums.get(lastIdx);
+            nums.set(idx, lastVal);
+            idxMap.put(lastVal, idx);
+        }
+        nums.remove(lastIdx);
+        idxMap.remove(val);
         return true;
     }
-    
-    /** Get a random element from the set. */
+
     public int getRandom() {
-        int max = list.size();
-        int min = 0;
-        int ind = (int)(Math.random() * (max - min) + min);
-        return list.get(ind);
+        return nums.get(random.nextInt(nums.size()));
     }
 }
-
 
 
 
