@@ -4,13 +4,13 @@ public class Solution {
             return false;
         int col=matrix[0].length-1,row=0, rowfin=matrix.length-1;
         while(col>=0 && row<=rowfin){
-            if(target==matrix[row][col])
-                return true;
-            else
                 if(target>matrix[row][col])
                     row++;
             else
-                col--;
+                if(target<matrix[row][col])
+                    col--;
+            else
+                return true;
         }
         return false;
     }
