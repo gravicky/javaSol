@@ -1,16 +1,20 @@
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        if(matrix==null || matrix.length<0 || matrix[0].length<0)
-            return false;
-        int col=matrix[0].length-1,row=0, rowfin=matrix.length-1;
-        while(col>=0 && row<=rowfin){
-                if(target>matrix[row][col])
-                    row++;
-            else
-                if(target<matrix[row][col])
-                    col--;
-            else
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        // Start from left bottom, 
+        // when matrix[x][y] > target, exclude x row by moving to top
+        // when matrix[x][y] < target, exclude y column by moving to right
+        int r = rows - 1;
+        int c = 0;
+        while (r >= 0 && c < cols) {
+            if (matrix[r][c] > target) {
+                r --;
+            } else if (matrix[r][c] < target) {
+                c ++;
+            } else {
                 return true;
+            }
         }
         return false;
     }
