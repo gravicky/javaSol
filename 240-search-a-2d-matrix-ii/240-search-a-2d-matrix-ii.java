@@ -1,6 +1,6 @@
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        if(matrix==null || matrix.length<0 || matrix[0].length<0)
+        if(matrix==null)
             return false;
         int col=matrix[0].length-1,row=0, rowfin=matrix.length-1;
         while(col>=0 && row<=rowfin){
