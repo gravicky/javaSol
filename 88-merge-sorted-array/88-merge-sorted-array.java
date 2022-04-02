@@ -12,6 +12,7 @@ class Solution {
             }
             i--;
         }
+        if(k>-1)
         while(k>-1){
             nums1[k]=nums2[k];
             k--;
