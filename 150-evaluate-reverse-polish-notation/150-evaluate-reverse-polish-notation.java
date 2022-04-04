@@ -17,7 +17,8 @@ Stack<Integer> stack = new Stack<Integer>();
         break;
 
       case "/":
-        int n1 = stack.pop(), n2 = stack.pop();
+        int n1 = stack.pop();
+            int n2 = stack.pop();
         stack.push(n2 / n1);
         break;
           
