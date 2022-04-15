@@ -5,6 +5,8 @@ class Solution {
             if(i>max)
                 return false;
             max=Math.max((nums[i]+i),max);
+            if(max>=n-1)
+                return true;
         }
         return true;
         
