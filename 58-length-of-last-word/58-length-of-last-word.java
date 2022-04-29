@@ -1,15 +1,16 @@
 class Solution {
     public int lengthOfLastWord(String s) {
-        if(s==null || s.length()==0)
-            return 0;
-        int a = (s.length()-1), part=0;
-        while(s.charAt(a)==' ')
-            a--;
-        for(int i=0;i<=a;i++)
-            if(s.charAt(i)==' ')
-                part=i+1;
-        return (a+1-part);
-        
+        int length = 0;
+		
+		// We are looking for the last word so let's go backward
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') { // a letter is found so count
+                length++;
+            } else {  // it's a white space instead
+				//  Did we already started to count a word ? Yes so we found the last word
+                if (length > 0) return length;
+            }
+        }
+        return length;
     }
-    
 }
