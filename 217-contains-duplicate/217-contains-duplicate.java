@@ -1,11 +1,16 @@
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        HashSet list=new HashSet<>();
-        for(int i:nums){
-            if(!list.add(i))
-                return true;
-        }    
+        if(nums==null)
+            throw new IllegalArgumentException("Input array is null");
+        if(nums.length==1)
             return false;
+        HashSet<Integer> set=new HashSet<>();
+        for(int i:nums){
+            if(!set.add(i))
+                return true;
+            
         }
+        return false;
         
     }
+}
