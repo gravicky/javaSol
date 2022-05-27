@@ -1,30 +1,29 @@
 class Solution {
     int x,y;
-    char[][] g;
+    char[][] gr;
     public int numIslands(char[][] grid) {
-        if(grid.length==0)
-            return 0;
         x=grid.length;
+        if(x==0)
+            return 0;
         y=grid[0].length;
-        g=grid;
         int c=0;
+        gr=grid;
         for(int i=0;i<x;i++)
-            for(int j=0;j<y;j++){
-                if(g[i][j]=='1'){
+            for(int j=0;j<y;j++)
+                if(gr[i][j]=='1'){
                     c++;
                     dfs(i,j);
                 }
-            }
         return c;
         
     }
     public void dfs(int i,int j){
-        if(i<0 || i>=x ||j<0 || j>=y || g[i][j]!='1')
+        if(i<0 || j<0 || i>=x || j>=y || gr[i][j]=='0')
             return;
-        g[i][j]='0';
-        dfs(i+1,j);
+        gr[i][j]='0';
         dfs(i-1,j);
-        dfs(i,j+1);
         dfs(i,j-1);
+        dfs(i+1,j);
+        dfs(i,j+1);
     }
 }
