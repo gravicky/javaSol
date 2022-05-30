@@ -15,7 +15,7 @@
         Arrays.sort(end);
         int startIndex=0;
         int endIndex=0;
-        List<int[]> result = new LinkedList<>();
+        List<int[]> result = new ArrayList<>();
         while(endIndex<length){
             //as endIndex==length-1 is evaluated first, start[endIndex+1] will never hit out of index
             if(endIndex==length-1 || start[endIndex+1]>end[endIndex]){
