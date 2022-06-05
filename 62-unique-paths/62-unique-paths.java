@@ -1,21 +1,16 @@
-public class Solution {
+class Solution {
     public int uniquePaths(int m, int n) {
-        if(m == 1 || n == 1)
+        return unique(m-1,n-1,new int[n][m]);
+        
+    }
+    public int unique(int x,int y,int[][] memo){
+        if(x<0 || y<0)
+            return 0;
+        if(x==0 || y==0)
             return 1;
-        m--;
-        n--;
-        if(m < n) {             
-            m = m + n;
-            n = m - n;
-            m = m - n;
-        }
-        long res = 1;
-        int j = 1;
-        for(int i = m+1; i <= m+n; i++, j++){      
-            res *= i;
-            res /= j;
-        }
-            
-        return (int)res;
+        if(memo[y][x]>0)
+            return memo[y][x];
+        memo[y][x] = unique(x-1,y,memo) + unique(x,y-1,memo); 
+        return memo[y][x];
     }
 }
