@@ -10,50 +10,56 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int overflow=0;
-        int sum=l1.val+l2.val;
-        ListNode nx=new ListNode(sum%10);
-        overflow=sum/10;
-        ListNode ny=nx;
-        l1=l1.next;
-        l2=l2.next;
-        while(l1!=null || l2!=null){
-            if(l1==null){
-                sum=l2.val+overflow;
-                ListNode nz=new ListNode(sum%10);
-                ny.next=nz;
-                ny=ny.next;
-                l2=l2.next;
-                overflow=sum/10;;
-                continue;
-                
-            }
-            if(l2==null){
-                sum=l1.val+overflow;
-                ListNode nz=new ListNode(sum%10);
-                ny.next=nz;
-                ny=ny.next;
-                l1=l1.next;
-                overflow=sum/10;
-                continue;
-                
-            }
-            sum=l1.val+l2.val+overflow;
-            ListNode nz=new ListNode(sum%10);
-            overflow=sum/10;
-            ny.next=nz;
-            ny=ny.next;
+        int len1,len2,carry=0;
+        ListNode l3;
+        if(l1!=null && l2!=null){
+            carry = (l1.val+l2.val)/10;
+            l3 = new ListNode((l1.val+l2.val)%10);
             l1=l1.next;
             l2=l2.next;
+        }
+        else
+            if(l1!=null){
+                l3 = new ListNode(l1.val);
+                l1=l1.next;
+            }
+        else
+        {
+            l3 = new ListNode(l2.val);
+                l2=l2.next; 
+        }
+        ListNode l4 = l3;
+        while(l1!=null && l2!=null){
+            int x = l1.val+l2.val+carry;
+            l3.next = new ListNode((x)%10);
+            carry = x/10;
+            l3 = l3.next;
+            l2 = l2.next;
+            l1 = l1.next;
+            
             
         }
-        if(overflow!=0){
-            ListNode nz=new ListNode(overflow);
-            ny.next=nz;
-            ny=ny.next;
+        while(l1!=null){
+            int x = l1.val+carry;
+            l3.next = new ListNode((x)%10);
+            carry = x/10;
+            l3 = l3.next;
+            l1 = l1.next;
+            
             
         }
-        return nx;
+        while(l2!=null){
+            int x = l2.val+carry;
+            l3.next = new ListNode((x)%10);
+            carry = x/10;
+            l3 = l3.next;
+            l2 = l2.next;
+            
+            
+        }
+        if(carry!=0)
+            l3.next = new ListNode(carry);
+        return l4;
         
     }
 }
