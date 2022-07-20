@@ -1,22 +1,17 @@
 class Solution {
-   public List<String> generateParenthesis(int n) {
-    List<String> list = new ArrayList<String>();
-    generateOneByOne("", list, n, n);
-    return list;
+   public List<String> generateParenthesis(int n) 
+{
+    List<String> result = new LinkedList<String>();
+    if (n > 0) generateParenthesisCore("", n, n, result); 
+    return result;
 }
-public void generateOneByOne(String sublist, List<String> list, int left, int right){
-    if(left > right){
-        return;
-    }
-    if(left > 0){
-        generateOneByOne( sublist + "(" , list, left-1, right);
-    }
-    if(right > 0){
-        generateOneByOne( sublist + ")" , list, left, right-1);
-    }
-    if(left == 0 && right == 0){
-        list.add(sublist);
-        return;
-    }
+
+private void generateParenthesisCore(String prefix, int left, int right, List<String> result)
+{
+    if (left == 0 && right == 0) result.add(prefix);
+    // Has left Parenthesis    
+    if (left > 0) generateParenthesisCore(prefix+'(', left-1, right, result);
+    // has more right Parenthesis
+    if (left < right) generateParenthesisCore(prefix+')', left, right-1, result);
 }
 }
