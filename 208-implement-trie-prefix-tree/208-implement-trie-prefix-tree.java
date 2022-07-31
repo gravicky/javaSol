@@ -1,7 +1,8 @@
 class Trie {
-    List<String> list; 
+    List<String> list;
+
     public Trie() {
-        list = new ArrayList<>();
+        list=new ArrayList<>();
         
     }
     
@@ -14,13 +15,18 @@ class Trie {
     }
     
     public boolean startsWith(String prefix) {
-        for(String str:list){
-             if(str.length()<prefix.length())
+        boolean ans=false;
+        ListIterator<String> iterator = list.listIterator();
+        while(iterator.hasNext()){
+            String str=iterator.next();
+            if(str.length()<prefix.length())
                 continue;
-            if(str.startsWith(prefix))
-                return true;
+            if(str.startsWith(prefix)){
+                ans=true;
+                break;
+            }   
         }
-        return false;
+        return ans;
     }
 }
 
