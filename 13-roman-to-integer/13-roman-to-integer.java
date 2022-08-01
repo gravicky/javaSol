@@ -4,15 +4,17 @@ class Solution {
        
      
         int sum=0;
-        for(int i=0;i<s.length();i++)
-            if((i<s.length()-1)&&(value(s.charAt(i))<value(s.charAt(i+1))))
+        for(int i=0;i<s.length();i++){
+            char x = s.charAt(i);
+            if((i<s.length()-1)&&(value(x)<value(s.charAt(i+1))))
             {
-                sum=sum+value(s.charAt(i+1))-value(s.charAt(i));
+                sum=sum+value(s.charAt(i+1))-value(x);
                 i++;
             }
         
          else
-            sum=sum+value(s.charAt(i));
+            sum=sum+value(x);
+        }
      return sum;   
     }
      public static int value(char c){
