@@ -1,7 +1,8 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new LinkedList<>(); 
-        if (matrix == null || matrix.length == 0) return res;
+        List<Integer> res = new ArrayList<>();
+        if(matrix == null || matrix.length==0)
+            return res;
         int n = matrix.length, m = matrix[0].length;
         int up = 0,  down = n - 1;
         int left = 0, right = m - 1;
@@ -18,7 +19,10 @@ class Solution {
             for (int i = down - 1; i >= up + 1 && res.size() < n * m; i--) 
                 res.add(matrix[i][left]);
                 
-            left++; right--; up++; down--; 
+                       up++;
+            down--;
+            left++;
+            right--;
         }
         return res;
     }
